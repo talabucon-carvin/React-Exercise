@@ -42,6 +42,7 @@ function App() {
     }
   },[userOutputContainer, userName])
 
+  //2 column render
   useEffect(()=>{
     setUserOutputCollectionRender([])
     for(let i = 0; i < userOutputContainer.length; i++){
