@@ -26,7 +26,11 @@ function App() {
 
   //Handler
   const handleUserNameChange = (e)=>{setUserName(e.target.value)};
-  const handleNumberOfParagraphsChange = (e)=>{setNumberOfParagraphs(e.target.value)};
+  const handleNumberOfParagraphsChange = (e)=>{
+    if(e.target.value >= 0 && e.target.value <= 5000) { 
+    setNumberOfParagraphs(e.target.value)
+    }
+  };
   const handleSubmit = (e) => {e.preventDefault()};
   
   
@@ -40,14 +44,11 @@ function App() {
 
   useEffect(()=>{
     setUserOutputCollectionRender([])
-    for(let i = 0; i < userOutputContainer.length; i+=2){
-      for(let j = 0; j < 2; j++) {
-        <Card>
-          
-        </Card>
-      }
-    }
-    
+    for(let i = 0; i < userOutputContainer.length; i++){
+        setUserOutputCollectionRender( arr => [...arr, <Grid item xs={6}><Card key={i}>{userOutputContainer[i]}</Card></Grid>])
+                  
+    }    
+      
   },[userOutputContainer])
 
   return (
@@ -61,30 +62,18 @@ function App() {
         handleNumberOfParagraphsChange={handleNumberOfParagraphsChange}
         handleSubmit={handleSubmit}
         />
-        <Typography variant="h4" component="div" gutterBottom>
+        <Typography  sx={{ my: 3 }} variant="h4" component="div" gutterBottom>
         Simple Cards
         </Typography>
         <Paper sx={{ mt: 3 }} elevation={3}>
           <Container>
             <Box sx={{ py: 1 }}>
-            {
-            userOutputContainer
-            }
+
             </Box>
             <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Card>
-
-                </Card>
-              </Grid>
-
-              <Grid item xs={6}>
-                <Card>
-                  
-                </Card>
-              </Grid>
-              
-              
+              {
+              userOutputCollectionRender
+              }
             </Grid>
           </Container>
         </Paper>
